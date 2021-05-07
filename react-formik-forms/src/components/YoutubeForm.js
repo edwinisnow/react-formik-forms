@@ -32,8 +32,15 @@ const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
   email: Yup.string().email("Invalid email format").required("Required"),
   channel: Yup.string().required("Required"),
-  address: Yup.string().required("Required"),
 });
+
+const validateComments = (value) => {
+  let error;
+  if (!value) {
+    error = "Required";
+  }
+  return error;
+};
 
 function YoutubeForm() {
   return (
@@ -41,20 +48,16 @@ function YoutubeForm() {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
-      validateOnChange={false}
-      validateOnBlur={false}
     >
       <Form>
         <div className="form-control">
           <label htmlFor="name">Name</label>
           <Field type="text" id="name" name="name" />
-          {/* <ErrorMessage name="name" component="div" /> */}
           <ErrorMessage name="name" component={TextError} />
         </div>
         <div className="form-control">
           <label htmlFor="email">Email</label>
           <Field type="text" id="email" name="email" />
-          {/* <ErrorMessage name="email" /> */}
           <ErrorMessage name="email">
             {(errorMsg) => <div className="error">{errorMsg}</div>}
           </ErrorMessage>
@@ -71,15 +74,19 @@ function YoutubeForm() {
         </div>
         <div className="form-control">
           <label htmlFor="comments">Comments</label>
-          <Field as="textarea" id="comments" name="comments" />
-          {/* <Field component="textarea" id="comments" name="comments" /> */}
+          <Field
+            as="textarea"
+            id="comments"
+            name="comments"
+            validate={validateComments}
+          />
+          <ErrorMessage name="comments" component={TextError} />
         </div>
         <div className="form-control">
           <label htmlFor="address">Address</label>
           <FastField id="address" name="address">
             {(props) => {
               const { field, form, meta } = props;
-              // console.log("props", props);
               return (
                 <div>
                   <input id="address" type="text" {...field} />
@@ -112,7 +119,6 @@ function YoutubeForm() {
               const { push, remove, form } = props;
               const { values } = form;
               const { phNumbers } = values;
-              console.log("Errors");
               return (
                 <div>
                   {phNumbers.map((phNumber, i) => (
