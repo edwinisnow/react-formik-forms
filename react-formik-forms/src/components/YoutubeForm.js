@@ -25,7 +25,7 @@ const initialValues = {
 };
 
 const onSubmit = (values) => {
-  console.log("form data", values);
+  // console.log("form data", values);
 };
 
 const validationSchema = Yup.object({
@@ -41,6 +41,8 @@ function YoutubeForm() {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      validateOnChange={false}
+      validateOnBlur={false}
     >
       <Form>
         <div className="form-control">
@@ -77,7 +79,7 @@ function YoutubeForm() {
           <FastField id="address" name="address">
             {(props) => {
               const { field, form, meta } = props;
-              console.log("props", props);
+              // console.log("props", props);
               return (
                 <div>
                   <input id="address" type="text" {...field} />
@@ -110,6 +112,7 @@ function YoutubeForm() {
               const { push, remove, form } = props;
               const { values } = form;
               const { phNumbers } = values;
+              console.log("Errors");
               return (
                 <div>
                   {phNumbers.map((phNumber, i) => (
