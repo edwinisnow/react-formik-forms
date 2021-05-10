@@ -28,7 +28,10 @@ textarea {
 .form-control {
   margin-bottom: 20px;
 }
-
+.radiobutton {
+  display: flex;
+  margin-bottom: 10px;
+}
 .error {
   color: red;
 }
