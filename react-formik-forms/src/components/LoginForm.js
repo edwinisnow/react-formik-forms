@@ -25,14 +25,13 @@ function LoginForm() {
         return (
           <Form>
             <FormikControl
-              control="input"
+              control="chakrainput"
               type="email"
               label="Email"
               name="email"
             />
             <FormikControl
-              control="input"
-              type="password"
+              control="chakrainput"
               label="Password"
               name="password"
             />
